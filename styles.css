@@ -1,0 +1,31 @@
+/* surcharge Bootstrap */
+.form-horizontal .control-label {
+    text-align: left;
+}
+body{
+}
+.container {
+    --box-shadow: 0 0 16px #333;
+    --outline: 1px dashed navy;
+}
+main {
+    position: relative;
+    margin-top: 4rem;
+}
+main > section {
+    display: none;
+}
+main > section:target {
+    display: block;
+}
+
+.navbar-nav.nav li {
+    border-bottom: 3px solid transparent;
+}
+.navbar-nav.nav li.actif {
+    border-bottom: 3px solid #3c0;
+}
+.navbar-nav.nav li:hover:not(.navbar-text),
+.navbar-nav.nav li:focus {
+    border-bottom: 3px solid #09f;
+}
