@@ -97,6 +97,7 @@ var entete = new Vue({
             console.dir(event);
             if(event.target.tagName == 'A'){
                 this.hash = event.target.hash;
+                $("#menu-principal").collapse("hide");
             }
         }
     }

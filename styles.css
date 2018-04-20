@@ -2,6 +2,9 @@
 .form-horizontal .control-label {
     text-align: left;
 }
+html {
+    min-height: 100vh;
+}
 body{
 }
 .container {
@@ -28,4 +31,21 @@ main > section:target {
 .navbar-nav.nav li:hover:not(.navbar-text),
 .navbar-nav.nav li:focus {
     border-bottom: 3px solid #09f;
+}
+
+.flex-col {
+    min-height: calc(100vh - 4rem);
+
+    display: flex;
+    flex-flow: column nowrap;
+}
+
+.flex-col > * {
+    flex: 0 0 auto;
+}
+.flex-col .list-group {
+    flex: 1 1 auto;
+}
+.flex-col nav {
+    align-self: center;
 }
