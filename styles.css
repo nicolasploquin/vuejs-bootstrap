@@ -7,12 +7,12 @@ html {
 }
 body{
 }
-.container {
-    --box-shadow: 0 0 16px #333;
-    --outline: 1px dashed navy;
+main.container {
+    _ox-shadow: 0 0 16px #333;
+    _utline: 1px dashed navy;
 }
 main {
-    position: relative;
+    _osition: relative;
     margin-top: 4rem;
 }
 main > section {
@@ -49,3 +49,25 @@ main > section:target {
 .flex-col nav {
     align-self: center;
 }
+
+
+/* correction table 100% */
+
+.table {
+    width: auto;
+}
+
+compte-details .table td:nth-child(2) {
+    width: 70%;
+}
+compte-details .table td:nth-child(3) {
+    width: 30%;
+    max-width: 3em;
+}
+
+#compte-details .table td {
+    white-space: nowrap;
+}
+
+
+

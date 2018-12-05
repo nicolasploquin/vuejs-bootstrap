@@ -2,20 +2,62 @@
     "use strict";
 
 
+// window.ENI = window.ENI || {};
+//
+// window.ENI.nb = 12;
+// window.ENI.afficherValeur = function(val){
+//     console.log(val);
+// };
 
-$("#menu-principal a").click(function () {
-    $("#menu-principal").collapse("hide");
+// $("#menu-principal").collapse("show");
+
+
+$("#menu-principal").on("click","li",function () {
+    $(this)
+        .addClass("active")
+    .siblings()
+        .removeClass("active")
+    .closest("#menu-principal")
+        .collapse("hide")
+    ;
 });
 
+$("#modal-form-connexion").on("hidden.bs.modal", (event) => {
+    // $(event.currentTarget).find("input").val();
+    // $(event.currentTarget).find("input").val("");
+    // $(event.currentTarget).find("input").attr("value");
+    // $(event.currentTarget).find("input").attr("value","");
+    $(event.currentTarget).find("form")[0].reset();
+    // event.currentTarget.querySelector("form").reset();
+});
 
-var clients = [{
-    nom: "DUBOIS", prenom: "Marie", comptes: 3
+$("#form-connexion").on("submit", event => {
+    event.preventDefault();
+    let identifiant = $("#identifiant").val().trim();
+    let motdepasse = $("#motdepasse").val().trim();
+    if(identifiant === motdepasse){
+        $("#modal-form-connexion").modal("hide");
+    } else {
+        alert("erreur");
+    }
+});
+
+    let demo = new Vue({
+        el: '#vuejs',
+        data: {
+            message: 'Ma première application VueJS !'
+        }
+    });
+
+
+let clients = [{
+    nom: "DUBOIS", prenom: "Marie", comptes: [{},{},{}]
 },{
-    nom: "DURAND", prenom: "Céline", comptes: 1
+    nom: "DURAND", prenom: "Céline", comptes: [{}]
 },{
     nom: "MOREAU", prenom: "Christophe"
 },{
-    nom: "PETIT", prenom: "Sébastien", comptes:  2
+    nom: "PETIT", prenom: "Sébastien", comptes: [{},{}]
 },{
     nom: "ROUX", prenom: "Aurélie"
 },{
@@ -44,27 +86,34 @@ var clients = [{
     nom: "LLL", prenom: "Aurélie"
 }];
 
-var demo = new Vue({
-    el: '#vuejs',
-    data: {
-        message: 'Ma première application VueJS !'
-    }
-});
+let clientsData = {
+    clients: clients,
+    page: 1,
+    max: 5
+};
 
-var clientsList = new Vue({
+let clientsList = new Vue({
     el: "#clients-list",
     data: {
-        clients: clients,
+        clients: [],
         page: 1,
-        max: 7
+        max: 5
     },
     computed : {
         clientsPage: function(){
             return this.clients.slice(this.page*this.max,(this.page+1)*this.max);
         }
+    },
+    mounted: function(){
+        fetchClients().then( (clients) => this.clients = clients );
     }
-
 });
+
+async function fetchClients(){
+    // clientsData.clients =
+    return await fetch('https://banque-api.azurewebsites.net/api/clients')
+            .then(resp => resp.json());
+}
 
 var clientForm = new Vue({
     el: "#client-form",
@@ -94,7 +143,6 @@ var entete = new Vue({
     },
     methods: {
         navig: function (event) {
-            console.dir(event);
             if(event.target.tagName == 'A'){
                 this.hash = event.target.hash;
                 $("#menu-principal").collapse("hide");
